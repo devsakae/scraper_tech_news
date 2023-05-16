@@ -19,10 +19,12 @@ def fetch(url):
 
 
 # Requisito 2
-def scrape_updates(html_content):
-    selector = Selector(text=html_content)
-    newsLinks = selector.css('.entry-title h2 a::attr(href)').getall()
-    return newsLinks
+def scrape_updates(html_content: str) -> list[dict]:
+    selector = Selector(html_content)
+    links = []
+    for link in selector.css('h2.entry-title a::attr(href)').getall():
+        links.append(link)
+    return links
 
 
 # Requisito 3

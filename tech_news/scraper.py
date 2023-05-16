@@ -1,6 +1,16 @@
+import requests
+
+headers = {'user-agent': 'Fake user-agent'}
+
+
 # Requisito 1
 def fetch(url):
-    """Seu código deve vir aqui"""
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        print(response.text)
+
+
+fetch('https://blog.betrybe.com/')
 
 
 # Requisito 2

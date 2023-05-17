@@ -28,4 +28,9 @@ def search_by_date(date):
 
 # Requisito 9
 def search_by_category(category):
-    """Seu código deve vir aqui"""
+    data = find_news()
+    response = []
+    for new in data:
+        if category.lower() in new["category"].lower():
+            response.append((new["title"], new["url"]))
+    return response

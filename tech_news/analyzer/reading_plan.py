@@ -13,9 +13,7 @@ class ReadingPlanService:
         return find_news()
 
     @classmethod
-    def group_news_for_available_time(
-        cls, available_time: int
-    ) -> Dict[str, List]:
+    def group_news_for_available_time(cls, available_time: int) -> Dict[str, List]:
         if available_time <= 0:
             raise ValueError("Valor 'available_time' deve ser maior que zero")
 
@@ -43,15 +41,11 @@ class ReadingPlanService:
         )
 
     @classmethod
-    def _register_unreadable(
-        cls, result: Dict[str, List], new: Dict[str, Any]
-    ):
+    def _register_unreadable(cls, result: Dict[str, List], new: Dict[str, Any]):
         result["unreadable"].append((new["title"], new["reading_time"]))
 
     @classmethod
-    def _fit_to_existing_group(
-        cls, result: Dict[str, List], new: Dict[str, Any]
-    ):
+    def _fit_to_existing_group(cls, result: Dict[str, List], new: Dict[str, Any]):
 
         for group in result["readable"]:
             if new["reading_time"] >= group["unfilled_time"]:

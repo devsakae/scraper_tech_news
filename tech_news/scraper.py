@@ -7,7 +7,6 @@ from tech_news.database import create_news
 headers = {"user-agent": "Fake user-agent"}
 
 
-# Requisito 1
 def fetch(url):
     try:
         response = requests.get(url, headers=headers, timeout=3)
@@ -19,7 +18,6 @@ def fetch(url):
         return response.text
 
 
-# Requisito 2
 def scrape_updates(html_content: str) -> list[dict]:
     selector = Selector(html_content)
     links = []
@@ -28,14 +26,12 @@ def scrape_updates(html_content: str) -> list[dict]:
     return links
 
 
-# Requisito 3
 def scrape_next_page_link(html_content: str) -> str | None:
     selector = Selector(html_content)
     next_page = selector.css("a.next.page-numbers::attr(href)").get()
     return next_page
 
 
-# Requisito 4
 def scrape_news(html_content: str) -> list[dict]:
     selector = Selector(html_content)
     url = selector.css("link[rel=canonical]::attr(href)").get()
@@ -56,7 +52,6 @@ def scrape_news(html_content: str) -> list[dict]:
     }
 
 
-# Requisito 5
 def get_tech_news(amount: int) -> list[dict]:
     pages = amount / 12
     html = fetch("https://blog.betrybe.com/")

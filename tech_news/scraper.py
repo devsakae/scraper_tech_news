@@ -1,6 +1,7 @@
 import requests
 import time
 from parsel import Selector
+import re
 
 
 headers = {'user-agent': 'Fake user-agent'}
@@ -35,8 +36,26 @@ def scrape_next_page_link(html_content: str) -> str | None:
 
 
 # Requisito 4
-def scrape_news(html_content):
-    """Seu código deve vir aqui"""
+def scrape_news(html_content: str) -> list[dict]:
+    selector = Selector(html_content)
+    regex = re.compile(r'<[ˆ>]+>')
+    url = selector.css('link[rel=canonical]::attr(href)').get()
+    title = selector.css('div.entry-header-inner.cs-bg-dark > h1::text').get()
+    timestamp = selector.css('li.meta-date::text').get()
+    writer = selector.css('h5.title-author > span > a::text').get()
+    reading_time = selector.css('li.meta-reading-time::text').get()
+    summary = selector.css('div.entry-content > p::text').get()
+    newsummary = regex.sub('', summary)
+    category = selector.css('span.label::text').get()
+    return ({
+        'url': url,
+        'title': title,
+        'timestamp': timestamp,
+        'writer': str(writer).strip(),
+        'reading_time': int(reading_time[0]),
+        'summary': newsummary,
+        'category': category
+    })
 
 
 # Requisito 5

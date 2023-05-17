@@ -4,7 +4,11 @@ Este projeto foi desenvolvido por Rodrigo Sakae, por meio de guias e design (ini
 
 Acesse mais em portfolio.sakae.social
 
-### Rodando em ambiente virtual
+### Instalando o projeto
+
+- [ ] Suba o container do MongoDB
+
+* `docker-compose up -d Mongo`
 
 - [ ] (opcional) Crie o ambiente virtual para o projeto
 
@@ -19,4 +23,4 @@ Acesse mais em portfolio.sakae.social
 
 Este sistema está configurado para buscar posts no blog da Trybe (blog.betrybe.com).
 
-Digite `tech-news-analyzer` no terminal, dentro da pasta do repositório, para acessar o menu.
+Digite `run-scraper` no terminal, dentro da pasta do repositório, para acessar o menu.

@@ -6,7 +6,6 @@ from tech_news.analyzer.search_engine import (
     )
 
 
-# Requisitos 11 e 12
 def analyzer_menu():
     print("""Selecione uma das opções a seguir:
  0 - Popular o banco com notícias;

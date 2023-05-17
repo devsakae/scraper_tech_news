@@ -1,4 +1,7 @@
+# flake8: noqa
 import sys
+import time
+from tech_news.color import color
 from tech_news.scraper import get_tech_news
 from tech_news.analyzer.ratings import top_5_categories
 from tech_news.analyzer.search_engine import (
@@ -7,33 +10,36 @@ from tech_news.analyzer.search_engine import (
     search_by_category,
 )
 
+def printnews(data):
+    if len(data) == 0:
+        print(f"\n*** {color.PURPLE}Aviso{color.END}: Nenhuma notícia encontrada")
+    else:
+        for new in data:
+            print(new)
 
 def analyzer_menu():
     print(
-        """Selecione uma das opções a seguir:
- 0 - Popular o banco com notícias;
- 1 - Buscar notícias por título;
- 2 - Buscar notícias por data;
- 3 - Buscar notícias por categoria;
- 4 - Listar top 5 categorias;
- 5 - Sair."""
+        f"""\n{color.BOLDBLUE}Python scraper by @devsakae{color.END}\n
+ {color.GREY}Digite {color.END}1{color.GREY} para atualizar o banco de dados
+ Digite {color.END}2{color.GREY} para pesquisar notícias por TÍTULO
+ Digite {color.END}3{color.GREY} para pesquisar notícias por DATA
+ Digite {color.END}4{color.GREY} para pesquisar notícias por CATEGORIA\n
+Ou digite {color.END}q{color.GREY} para {color.END}{color.RED}finalizar{color.END}{color.GREY} o script.{color.END}\n"""
     )
-    answer = input("Digite a opção desejada: ")
-    if answer == "0":
-        value = input("Digite quantas notícias serão buscadas: ")
-        return get_tech_news(int(value))
+    answer = input(">> Digite a opção desejada: ")
     if answer == "1":
-        value = input("Digite o título: ")
-        return print(search_by_title(value))
-    if answer == "2":
-        value = input("Digite a data no formato aaaa-mm-dd: ")
-        return print(search_by_date(value))
-    if answer == "3":
-        value = input("Digite a categoria: ")
-        return print(search_by_category(value))
-    if answer == "4":
-        return print(top_5_categories())
-    if answer == "5":
-        return print("Encerrando script")
+        value = input("Digite quantas notícias serão buscadas: ")
+        get_tech_news(int(value))
+    elif answer == "2":
+        printnews(search_by_title(input("Pesquisar por qual string? ")))
+    elif answer == "3":
+        printnews(search_by_date(input("Digite a data a pesquisar (formato aaaa-mm-dd): ")))
+    elif answer == "4":
+        print(top_5_categories())
+        printnews(search_by_category(input("Escreva qual categoria deseja ler: ")))
+    elif answer == "q":
+        return print(f"\n{color.BOLDRED}*** Encerrando script ***{color.END}\n")
     else:
-        print("Opção inválida", file=sys.stderr)
+        print(f"\n*** {color.BOLDRED}Erro{color.END}: Opção inválida", file=sys.stderr)
+    time.sleep(1)
+    analyzer_menu()

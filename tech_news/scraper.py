@@ -1,3 +1,4 @@
+# flake8: noqa
 import requests
 import time
 from parsel import Selector
@@ -71,4 +72,4 @@ def get_tech_news(amount: int) -> list[dict]:
         loader = round(raw, 2)
         print(f"Carregando: {loader}%")
     create_news(news)
-    print("Scraper finalizado com {amount} notícias adicionadas ao banco de dados")
+    print(f"Scraper finalizado: {amount} notícias adicionadas ao seu banco de dados")

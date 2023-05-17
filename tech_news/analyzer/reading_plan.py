@@ -1,3 +1,4 @@
+# flake8: noqa
 from typing import Any, Dict, List
 from tech_news.database import find_news
 

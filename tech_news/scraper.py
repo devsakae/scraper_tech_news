@@ -66,12 +66,12 @@ def get_tech_news(amount: int) -> list[dict]:
         newpagelinks = scrape_updates(html)
         links += newpagelinks
         pages -= 1
-    print(links)
     alllinks = iter(links)
     news = []
     for _ in range(amount):
         scrapped = fetch(next(alllinks))
         formatted = scrape_news(scrapped)
         news.append(formatted)
+        print(f"loading: {(amount / len(news)) * 100}%")
     create_news(news)
     return news

@@ -72,6 +72,6 @@ def get_tech_news(amount: int) -> list[dict]:
         scrapped = fetch(next(alllinks))
         formatted = scrape_news(scrapped)
         news.append(formatted)
-        print(f"loading: {(amount / len(news)) * 100}%")
+        print(f"loading: {(len(news) / amount) * 100}%")
     create_news(news)
     return news

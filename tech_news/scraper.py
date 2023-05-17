@@ -58,20 +58,20 @@ def scrape_news(html_content: str) -> list[dict]:
 
 # Requisito 5
 def get_tech_news(amount: int) -> list[dict]:
-    pages = amount % 12
-    html = fetch('https://blog.betrybe.com/')
-    while pages > 1:
-        nextpage = fetch(scrape_next_page_link(html))
-        html += nextpage
-        pages -= 1
-    # links = iter(scrape_updates(html))
+    pages = amount / 12
+    html = fetch("https://blog.betrybe.com/")
     links = scrape_updates(html)
-    return links
-
-    # news = []
-    # for _ in range(amount):
-    #     scrapped = fetch(next(links))
-    #     formatted = scrape_news(scrapped)
-    #     news.append(formatted)
-    # create_news(news)
-    # return news
+    while pages > 1:
+        html = fetch(scrape_next_page_link(html))
+        newpagelinks = scrape_updates(html)
+        links += newpagelinks
+        pages -= 1
+    print(links)
+    alllinks = iter(links)
+    news = []
+    for _ in range(amount):
+        scrapped = fetch(next(alllinks))
+        formatted = scrape_news(scrapped)
+        news.append(formatted)
+    create_news(news)
+    return news

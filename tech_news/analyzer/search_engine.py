@@ -1,7 +1,18 @@
 # flakes8: noqa E501
-from tech_news.database import find_news
+from tech_news.database import find_news, search_news
 from datetime import datetime
 from tech_news.color import color
+
+
+def get_all_news():
+    data = search_news({})
+    response = []
+    for new in data:
+        fdate = color.BLUE + new['timestamp'] + color.END
+        fcate = color.DARKCYAN + new['category'] + color.END
+        info = f"[{fdate}] [{fcate}]"
+        response.append(f"{info} {new['title']}")
+    return response
 
 
 def search_by_title(title):

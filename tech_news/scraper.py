@@ -3,6 +3,8 @@ import requests
 import time
 from parsel import Selector
 from tech_news.database import create_news
+from tech_news.color import color
+from tqdm import tqdm
 
 
 headers = {"user-agent": "Fake user-agent"}
@@ -64,12 +66,12 @@ def get_tech_news(amount: int) -> list[dict]:
         pages -= 1
     alllinks = iter(links)
     news = []
-    for _ in range(amount):
+    for _ in tqdm(range(amount),
+            desc="Carregando…",
+            ascii=False,
+            ncols=75):
         scrapped = fetch(next(alllinks))
         formatted = scrape_news(scrapped)
         news.append(formatted)
-        raw = (len(news) / amount) * 100
-        loader = round(raw, 2)
-        print(f"Carregando: {loader}%")
     create_news(news)
-    print(f"Scraper finalizado: {amount} notícias adicionadas ao seu banco de dados")
+    print(f"{color.GREEN}Finished{color.END}{color.GREY}:{color.END}{color.BOLD} {amount} {color.END}{color.GREY}notícias adicionadas ao seu banco de dados{color.END}")

@@ -1,8 +1,8 @@
-# Projeto by @devsakae
+# Scraper tech news
 
 Este projeto foi desenvolvido por Rodrigo Sakae, por meio de guias e design (iniciais) de @Trybe.
 
-Acesse mais em portfolio.sakae.social
+Acesse mais em https://www.devsakae.tech
 
 ### Instalando o projeto
 
